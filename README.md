@@ -6,6 +6,12 @@ SmolVLA ActionLens is an offline 7-DoF vision-language-action project built with
 
 The repository contains the 500-step checkpoint, training and evaluation scripts, all experiment figures, the measured MAE results, and the full Chinese implementation plan.
 
+Links:
+
+- GitHub repository: https://github.com/lchaoming662-sys/smolvla-actionlens
+- Hugging Face model: https://huggingface.co/liming662/smolvla-actionlens-finetuned-500
+- Model weights: https://huggingface.co/liming662/smolvla-actionlens-finetuned-500/blob/main/model.safetensors
+
 ## Results
 
 Test set: 8 held-out LIBERO episodes, 10 sampled frames per episode, 80 samples total.

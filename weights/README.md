@@ -1,17 +1,11 @@
 # Model Weights
 
-The 500-step model weights are distributed as a GitHub Release asset to avoid placing a 906 MB binary in normal Git history.
+The 500-step model weights are available from Hugging Face Hub:
 
-Download:
+https://huggingface.co/liming662/smolvla-actionlens-finetuned-500/blob/main/model.safetensors
 
-```text
-https://github.com/lchaoming662-sys/smolvla-actionlens/releases/download/v0.1.0/smolvla-actionlens-finetuned-500.safetensors
-```
+A GitHub Release asset is also being prepared:
 
-Place the downloaded file at:
+https://github.com/lchaoming662-sys/smolvla-actionlens/releases/tag/v0.1.0
 
-```text
-weights/finetuned_500/model.safetensors
-```
-
-The configuration, tokenizer, processor files, and training config remain in this directory. A mirrored copy will also be published on Hugging Face Hub.
+The configuration, tokenizer, processor files, and training config remain in this directory.

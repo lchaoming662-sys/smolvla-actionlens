@@ -84,7 +84,7 @@ Install LeRobot and the SmolVLA dependencies, then load:
 ```python
 from lerobot.policies.smolvla import SmolVLAPolicy
 
-policy = SmolVLAPolicy.from_pretrained("YOUR_HF_USERNAME/smolvla-actionlens-finetuned-500")
+policy = SmolVLAPolicy.from_pretrained("liming662/smolvla-actionlens-finetuned-500")
 ```
 
 ## Limitations
