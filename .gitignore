@@ -1,0 +1,11 @@
+data/
+outputs/
+*.npz
+__pycache__/
+*.py[cod]
+.venv/
+.env
+hf-cache/
+lerobot-cache/
+wandb/
+weights/finetuned_500/model.safetensors

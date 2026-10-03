@@ -1,0 +1,12 @@
+{
+  "selected_sample": 15,
+  "episode_id": 918,
+  "sample_index": 219,
+  "base_mae": 0.2654571315220424,
+  "ft500_mae": 0.09738196236746652,
+  "improvement": 0.1680751691545759,
+  "overall_base_mae": 0.3231640360695975,
+  "overall_ft500_mae": 0.16898675612040928,
+  "figure_prediction": "E:\\VLA\\outputs\\prediction_curves_base_vs_500.png",
+  "figure_error_horizon": "E:\\VLA\\outputs\\error_vs_horizon_base_vs_500.png"
+}
