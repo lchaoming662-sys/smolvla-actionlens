@@ -12,81 +12,83 @@ tags:
 license: apache-2.0
 ---
 
-# SmolVLA ActionLens Fine-tuned 500 Steps
+# SmolVLA ActionLens 500 步微调模型
 
-This is a 7-dimensional SmolVLA policy fine-tuned with LeRobot on the LIBERO task:
+这是基于 LeRobot 微调得到的 7 维 SmolVLA 策略，训练任务为 LIBERO：
 
-> pick up the chocolate pudding and place it in the basket
+> 拿起巧克力布丁并放入篮子
 
-The checkpoint was fine-tuned from `bicmol/smolvla-libero` for 500 optimizer steps using 12 training episodes. The model predicts 50 future actions with 7 dimensions per step.
+模型从 `bicmol/smolvla-libero` 出发，使用 12 个训练 episode 微调 500 个优化步。每次推理输出未来 50 步、每步 7 维的动作序列。
 
-## Inputs and Outputs
+## 输入与输出
 
 ```text
-Inputs:
+输入：
   observation.images.image
   observation.images.wrist_image
   observation.state [8]
-  language instruction
+  自然语言任务指令
 
-Output:
+输出：
   action [50, 7]
 ```
 
-For LIBERO datasets, rename:
+LIBERO 数据集需要将相机键重命名：
 
 ```text
 observation.images.image2 -> observation.images.wrist_image
 ```
 
-## Offline Evaluation
+## 离线评估
 
-Test set: 8 held-out episodes, 10 sampled frames per episode, 80 samples total.
+测试集：8 个测试 episode，每个 episode 抽取 10 帧，共 80 个样本。
 
-| Model | MAE | Change vs base |
+| 模型 | MAE | 相对基础模型 |
 |---|---:|---:|
-| 7D base | 0.3232 | - |
-| 100 steps | 0.2228 | -31.1% |
-| 200 steps | 0.1964 | -39.2% |
-| 300 steps | 0.1782 | -44.9% |
-| 400 steps | 0.1728 | -46.5% |
-| 500 steps | 0.1690 | -47.7% |
+| 7D 基础模型 | 0.3232 | - |
+| 100 步 | 0.2228 | 降低 31.1% |
+| 200 步 | 0.1964 | 降低 39.2% |
+| 300 步 | 0.1782 | 降低 44.9% |
+| 400 步 | 0.1728 | 降低 46.5% |
+| 500 步 | 0.1690 | 降低 47.7% |
 
-![MAE comparison](assets/figures/eval_7d_base_vs_finetuned_500.png)
+![MAE 对比](assets/figures/eval_7d_base_vs_finetuned_500.png)
 
-## Prediction Comparison
+## 预测曲线对比
 
-![Prediction curves](assets/figures/prediction_curves_base_vs_500.png)
+![预测曲线](assets/figures/prediction_curves_base_vs_500.png)
 
-![Error versus horizon](assets/figures/error_vs_horizon_base_vs_500.png)
+![误差随预测步数变化](assets/figures/error_vs_horizon_base_vs_500.png)
 
-## Training Configuration
+## 训练配置
 
 ```text
-Dataset: lerobot/libero
-Task: pick up the chocolate pudding and place it in the basket
-Training episodes: 12
-Test episodes: 8
-Batch size: 1
-Gradient accumulation: 8
-Effective batch size: 8
-Steps: 500
-Action horizon: 50
-FPS: 10
-Precision: bfloat16
-Hardware: RTX 4060 Laptop 8 GB
+数据集：lerobot/libero
+任务：拿起巧克力布丁并放入篮子
+训练 episode：12 个
+测试 episode：8 个
+Batch size：1
+梯度累积：8
+有效 batch size：8
+优化步数：500
+动作预测长度：50
+数据帧率：10 FPS
+精度：bfloat16
+硬件：RTX 4060 Laptop 8 GB
 ```
 
-## Usage
+## 使用方式
 
-Install LeRobot and the SmolVLA dependencies, then load:
+安装 LeRobot 和 SmolVLA 依赖后加载模型：
 
 ```python
 from lerobot.policies.smolvla import SmolVLAPolicy
 
-policy = SmolVLAPolicy.from_pretrained("liming662/smolvla-actionlens-finetuned-500")
+policy = SmolVLAPolicy.from_pretrained(
+    "liming662/smolvla-actionlens-finetuned-500"
+)
 ```
 
-## Limitations
+## 局限说明
 
-The reported metric is offline action MAE, not closed-loop task success rate. Results are based on one LIBERO task and a small held-out episode set.
+当前指标是离线动作预测 MAE，不是 LIBERO 闭环任务成功率。结果仅基于单一抓放任务和较小的测试 episode 子集。
